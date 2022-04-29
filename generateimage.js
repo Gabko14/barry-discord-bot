@@ -10,8 +10,8 @@ const dim = {
 
 const av = {
     size: 256,
-    x: 103,
-    y: 125
+    x: 80,
+    y: 100
 }
 
 const generateImage = async (member) => {
@@ -51,7 +51,7 @@ const generateImage = async (member) => {
 
     //draw in the username
     ctx.font = "60px Roboto"
-    ctx.fillText(username + discrim, dim.width/2, dim.height - dim.margin - 125)
+    ctx.fillText(username + "#" + discrim, dim.width/2, dim.height - dim.margin - 175)
 
     // draw in to the server
     ctx.font = "40px Roboto"

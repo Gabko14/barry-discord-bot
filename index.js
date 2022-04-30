@@ -11,24 +11,42 @@ const client = new Discord.Client({
     ]
 })
 
-client.on("ready", () => {
-    console.log(`Logged in as ${client.user.tag}`)
-})
+let bot = {
+    client,
+    prefix: "n.",
+    owners: [561518634745200660]
+}
 
-client.on("messageCreate", (message) => {
-    if (message.content == "hi"){
-        message.reply("Wassup Daddy")
-    }
-})
+client.commands = new Discord.Collection()
+client.events = new Discord.Collection()
 
-const welcomeChannelId = "968598040321617971"
+client.loadEvents = (bot, reload) => require("./handlers/events")(bot, reload)
+client.loadCommands = (bot, reload) => require("./handlers/commands")(bot, reload)
 
-client.on("guildMemberAdd", async (member) => {
-    const img = await generateImage(member)
-    member.guild.channels.cache.get(welcomeChannelId).send({
-        content: `<@${member.id}> Welcome to the server!`,
-        files: [img]
-    })
-})
+client.loadEvents(bot, false)
+client.loadCommands(bot, false)
+
+module.exports = bot
+
+
+//client.on("ready", () => {
+//    console.log(`Logged in as ${client.user.tag}`)
+//})
+
+//client.on("messageCreate", (message) => {
+//    if (message.content == "hi"){
+//        message.reply("Wassup Daddy")
+//    }
+//})
+
+//const welcomeChannelId = "968598040321617971"
+
+//client.on("guildMemberAdd", async (member) => {
+//    const img = await generateImage(member)
+//    member.guild.channels.cache.get(welcomeChannelId).send({
+//        content: `<@${member.id}> Welcome to the server!`,
+//        files: [img]
+//    })
+//})
 
 client.login(process.env.TOKEN)
